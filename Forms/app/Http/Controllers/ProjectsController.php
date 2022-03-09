@@ -13,4 +13,20 @@ class ProjectsController extends Controller
             'projects' => Project::all()
         ]);
     }
+
+    public function store()
+    {   
+        $this->validate(request(), [
+            'name' => 'required',
+            "description" => 'required'
+        ]);
+
+        Project::forceCreate([
+            'name' => request('name'),
+            'description' => request('description')
+        ]);
+
+        return ['message' => 'Project Created!'];
+    }
+    
 }
